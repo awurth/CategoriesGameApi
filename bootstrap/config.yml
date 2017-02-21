@@ -1,0 +1,21 @@
+config:
+    settings:
+        displayErrorDetails: true
+    rest:
+        url:    http://localhost/slim-rest-base
+        prefix: /api
+        crud:
+            get:               true
+            get_collection:    true
+            post:              true
+            put:               true
+            delete:            true
+            delete_collection: false
+    cors:
+        origin:  '*'
+        headers: 'X-Requested-With, Content-Type, Accept, Origin, Authorization'
+        methods: 'GET, POST, PUT, PATCH, DELETE'
+        max_age: 3600
+    jwt:
+        server_name:    localhost
+        token_lifetime: 3600
