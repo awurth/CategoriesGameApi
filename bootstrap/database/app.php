@@ -3,11 +3,6 @@
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Schema\Blueprint;
 
-Manager::schema()->dropIfExists('game_subject');
-Manager::schema()->dropIfExists('round');
-Manager::schema()->dropIfExists('game');
-Manager::schema()->dropIfExists('subject');
-
 Manager::schema()->create('subject', function (Blueprint $table) {
     $table->increments('id');
     $table->string('name');

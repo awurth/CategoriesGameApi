@@ -16,7 +16,3 @@ foreach ($subjectsNames as $subjectName) {
     $subject = new Subject(['name' => $subjectName]);
     $subject->save();
 }
-
-$game = new Game();
-$game->save();
-$game->subjects()->attach(Subject::all());
