@@ -1,54 +1,58 @@
 # API Routes
 
-### `POST` [/api/register](http://localhost/slim-rest-base/api/register)
+### `POST` [/api/register](http://localhost/find-the-words/api/register)
 ##### AuthController:register
 ###### register
 
-### `POST` [/api/login](http://localhost/slim-rest-base/api/login)
+### `POST` [/api/login](http://localhost/find-the-words/api/login)
 ##### AuthController:login
 ###### login
 
-### `GET` [/api/users/me](http://localhost/slim-rest-base/api/users/me)
+### `POST` [/api/auth/refresh](http://localhost/find-the-words/api/auth/refresh)
+##### AuthController:refresh
+###### jwt.refresh
+
+### `GET` [/api/users/me](http://localhost/find-the-words/api/users/me)
 ##### AuthController:me
 ###### users.me
 
-### `GET` [/api/articles/{id:[0-9]+}](http://localhost/slim-rest-base/api/articles/{id:[0-9]+})
-##### ArticleController:getArticle
-###### get_article
+### `GET` [/api/subjects/{id:[0-9]+}](http://localhost/find-the-words/api/subjects/{id:[0-9]+})
+##### App\Controller\SubjectController:getSubject
+###### get_subject
 
-### `GET` [/api/articles](http://localhost/slim-rest-base/api/articles)
-##### ArticleController:getArticles
-###### get_articles
+### `GET` [/api/subjects](http://localhost/find-the-words/api/subjects)
+##### App\Controller\SubjectController:getSubjects
+###### get_subjects
 
-### `POST` [/api/articles](http://localhost/slim-rest-base/api/articles)
-##### ArticleController:postArticle
-###### post_article
+### `POST` [/api/subjects](http://localhost/find-the-words/api/subjects)
+##### App\Controller\SubjectController:postSubject
+###### post_subject
 
-### `PUT` [/api/articles/{id:[0-9]+}](http://localhost/slim-rest-base/api/articles/{id:[0-9]+})
-##### ArticleController:putArticle
-###### put_article
+### `PUT` [/api/subjects/{id:[0-9]+}](http://localhost/find-the-words/api/subjects/{id:[0-9]+})
+##### App\Controller\SubjectController:putSubject
+###### put_subject
 
-### `DELETE` [/api/articles/{id:[0-9]+}](http://localhost/slim-rest-base/api/articles/{id:[0-9]+})
-##### ArticleController:deleteArticle
-###### delete_article
+### `DELETE` [/api/subjects/{id:[0-9]+}](http://localhost/find-the-words/api/subjects/{id:[0-9]+})
+##### App\Controller\SubjectController:deleteSubject
+###### delete_subject
 
-### `GET` [/api/articles/{article_id:[0-9]+}/comments/{comment_id:[0-9]+}](http://localhost/slim-rest-base/api/articles/{article_id:[0-9]+}/comments/{comment_id:[0-9]+})
-##### ArticleCommentController:getArticleComment
-###### get_article_comment
+### `GET` [/api/games/{id:[0-9]+}](http://localhost/find-the-words/api/games/{id:[0-9]+})
+##### App\Controller\GameController:getGame
+###### get_game
 
-### `GET` [/api/articles/{article_id:[0-9]+}/comments](http://localhost/slim-rest-base/api/articles/{article_id:[0-9]+}/comments)
-##### ArticleCommentController:getArticleComments
-###### get_article_comments
+### `GET` [/api/games](http://localhost/find-the-words/api/games)
+##### App\Controller\GameController:getGames
+###### get_games
 
-### `POST` [/api/articles/{article_id:[0-9]+}/comments](http://localhost/slim-rest-base/api/articles/{article_id:[0-9]+}/comments)
-##### ArticleCommentController:postArticleComment
-###### post_article_comment
+### `POST` [/api/games](http://localhost/find-the-words/api/games)
+##### App\Controller\GameController:postGame
+###### post_game
 
-### `PUT` [/api/articles/{article_id:[0-9]+}/comments/{comment_id:[0-9]+}](http://localhost/slim-rest-base/api/articles/{article_id:[0-9]+}/comments/{comment_id:[0-9]+})
-##### ArticleCommentController:putArticleComment
-###### put_article_comment
+### `PUT` [/api/games/{id:[0-9]+}](http://localhost/find-the-words/api/games/{id:[0-9]+})
+##### App\Controller\GameController:putGame
+###### put_game
 
-### `DELETE` [/api/articles/{article_id:[0-9]+}/comments/{comment_id:[0-9]+}](http://localhost/slim-rest-base/api/articles/{article_id:[0-9]+}/comments/{comment_id:[0-9]+})
-##### ArticleCommentController:deleteArticleComment
-###### delete_article_comment
+### `DELETE` [/api/games/{id:[0-9]+}](http://localhost/find-the-words/api/games/{id:[0-9]+})
+##### App\Controller\GameController:deleteGame
+###### delete_game
 
