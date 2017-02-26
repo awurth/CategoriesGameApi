@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Exception\AccessDeniedException;
 use App\Model\User;
 use App\Service\JWTManager;
 use Awurth\Slim\Rest\Validation\Validator;
@@ -42,6 +43,21 @@ abstract class Controller
         $token = $this->jwt->getAccessToken();
 
         return $token ? $token->user : null;
+    }
+
+    /**
+     * Throw an AccessDeniedException if user doesn't have the required role
+     *
+     * @param string $role
+     * @throws AccessDeniedException
+     */
+    public function requireRole($role)
+    {
+        $user = $this->getUser();
+
+        if (null === $user || !$user->inRole($role)) {
+            throw $this->accessDeniedException('Access denied: User must have role ' . $role);
+        }
     }
 
     /**
@@ -180,6 +196,17 @@ abstract class Controller
     public function notFoundException(Request $request, Response $response)
     {
         return new NotFoundException($request, $response);
+    }
+
+    /**
+     * Create new AccessDeniedException
+     *
+     * @param string $message
+     * @return AccessDeniedException
+     */
+    public function accessDeniedException($message = "Access denied")
+    {
+        return new AccessDeniedException($message);
     }
 
     public function __get($property)
