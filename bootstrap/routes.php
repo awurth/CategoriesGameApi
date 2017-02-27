@@ -6,6 +6,7 @@ use App\Middleware\AuthMiddleware;
 
 use App\Controller\SubjectController;
 use App\Controller\GameController;
+use App\Controller\UserGameController;
 
 $router = new RestRouter($container['router'], $config['rest']);
 
@@ -29,6 +30,8 @@ $app->group('/api', function () use ($container) {
 });
 
 $router->CRUD('subjects', SubjectController::class);
-$games = $router->CRUD('games', GameController::class);
 
+$games = $router->CRUD('games', GameController::class);
 $games['post']->add(new AuthMiddleware($container));
+
+$router->subCRUD('users', 'games', UserGameController::class);

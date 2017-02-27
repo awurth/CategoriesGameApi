@@ -20,4 +20,14 @@ class User extends EloquentUser
     ];
 
     protected $loginNames = ['username', 'email'];
+
+    public function ownGames()
+    {
+        return $this->hasMany('App\Model\Game', 'user_id');
+    }
+
+    public function playedGames()
+    {
+        return $this->belongsToMany('App\Model\Game');
+    }
 }

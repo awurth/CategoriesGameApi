@@ -29,3 +29,10 @@ Manager::schema()->create('game_subject', function (Blueprint $table) {
     $table->foreign('game_id')->references('id')->on('game');
     $table->foreign('subject_id')->references('id')->on('subject');
 });
+
+Manager::schema()->create('game_user', function (Blueprint $table) {
+    $table->integer('game_id')->unsigned();
+    $table->integer('user_id')->unsigned();
+    $table->foreign('game_id')->references('id')->on('game');
+    $table->foreign('user_id')->references('id')->on('user');
+});

@@ -11,6 +11,7 @@ Manager::schema()->dropIfExists('roles');
 Manager::schema()->dropIfExists('access_token');
 Manager::schema()->dropIfExists('refresh_token');
 
+Manager::schema()->dropIfExists('game_user');
 Manager::schema()->dropIfExists('game_subject');
 Manager::schema()->dropIfExists('round');
 Manager::schema()->dropIfExists('game');
