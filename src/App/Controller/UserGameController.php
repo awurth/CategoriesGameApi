@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Game;
 use App\Model\User;
-use Respect\Validation\Validator as V;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -20,23 +20,20 @@ class UserGameController extends Controller
         return $this->ok($response, array_merge($user->ownGames->toArray(), $user->playedGames->toArray()));
     }
 
-    public function getGame(Request $request, Response $response, $id)
+    public function getUserGame(Request $request, Response $response, $userId, $gameId)
     {
-        return $response;
-    }
+        $user = User::find($userId);
 
-    public function postGame(Request $request, Response $response)
-    {
-        return $response;
-    }
+        if (null === $user) {
+            throw $this->notFoundException($request, $response);
+        }
 
-    public function putGame(Request $request, Response $response, $id)
-    {
-        return $response;
-    }
+        $game = Game::with('subjects')->find($gameId);
 
-    public function deleteGame(Request $request, Response $response, $id)
-    {
-        return $response;
+        if (null === $game) {
+            throw $this->notFoundException($request, $response);
+        }
+
+        return $this->ok($response, $game);
     }
 }

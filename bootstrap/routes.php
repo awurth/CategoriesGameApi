@@ -8,6 +8,8 @@ use App\Controller\SubjectController;
 use App\Controller\GameController;
 use App\Controller\UserGameController;
 
+$authMiddleware = new AuthMiddleware($container);
+
 $router = new RestRouter($container['router'], $config['rest']);
 
 /**
@@ -20,18 +22,19 @@ $app->options('/{routes:.+}', function ($request, $response) {
 /**
  * Authentication
  */
-$app->group('/api', function () use ($container) {
+$app->group('/api', function () use ($container, $authMiddleware) {
     $this->post('/register', 'AuthController:register')->setName('register');
     $this->post('/login', 'AuthController:login')->setName('login');
     $this->post('/auth/refresh', 'AuthController:refresh')->setName('jwt.refresh');
     $this->get('/users/me', 'AuthController:me')
-        ->add(new AuthMiddleware($container))
+        ->add($authMiddleware)
         ->setName('users.me');
 });
 
 $router->CRUD('subjects', SubjectController::class);
 
 $games = $router->CRUD('games', GameController::class);
-$games['post']->add(new AuthMiddleware($container));
+$games['post']->add($authMiddleware);
 
-$router->subCRUD('users', 'games', UserGameController::class);
+$router->cgetSub('users', 'games', UserGameController::class);
+$router->getSub('users', 'games', UserGameController::class);
