@@ -10,7 +10,7 @@ class Round extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['letter'];
+    protected $fillable = ['letter', 'finished'];
 
     public function game()
     {

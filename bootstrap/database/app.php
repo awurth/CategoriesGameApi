@@ -19,6 +19,8 @@ Manager::schema()->create('game', function (Blueprint $table) {
 Manager::schema()->create('round', function (Blueprint $table) {
     $table->increments('id');
     $table->string('letter');
+    $table->boolean('finished')->default(false);
+    $table->timestamps();
     $table->integer('game_id')->unsigned();
     $table->foreign('game_id')->references('id')->on('game');
 });
