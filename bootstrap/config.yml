@@ -7,7 +7,7 @@ config:
         # Used for generating links in API routes markdown
         url: http://localhost/find-the-words
         # All URLs generated with the RestRouter will be prefixed with this
-        prefix: /api
+        prefix: ''
         # Default key to use for single resources
         key: id
         # Default requirement for single resources key
@@ -22,10 +22,11 @@ config:
             delete:            true
             delete_collection: false
     cors:
-        origin:  '*'
-        headers: 'X-Requested-With, Content-Type, Accept, Origin, Authorization'
-        methods: 'GET, POST, PUT, PATCH, DELETE'
-        max_age: 3600
+        origin:         '*'
+        allow_headers:  'X-Requested-With, Content-Type, Accept, Origin, Authorization'
+        expose_headers: 'Location'
+        methods:        'GET, POST, PUT, PATCH, DELETE'
+        max_age:        3600
     jwt:
         # The server name used to encrypt access tokens and refresh tokens
         server_name:            localhost
