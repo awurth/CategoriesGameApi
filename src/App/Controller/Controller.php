@@ -49,6 +49,7 @@ abstract class Controller
      * Throw an AccessDeniedException if user doesn't have the required role
      *
      * @param string $role
+     *
      * @throws AccessDeniedException
      */
     public function requireRole($role)
@@ -75,6 +76,7 @@ abstract class Controller
      *
      * @param Request $request
      * @param string[] $params
+     *
      * @return array
      */
     public function params(Request $request, array $params)
@@ -93,11 +95,13 @@ abstract class Controller
      * @param Response $response
      * @param string $route
      * @param array $params
+     * @param int $status
+     *
      * @return Response
      */
-    public function redirect(Response $response, $route, array $params = [])
+    public function redirect(Response $response, $route, array $params = [], $status = 302)
     {
-        return $response->withRedirect($this->router->pathFor($route, $params));
+        return $response->withRedirect($this->router->pathFor($route, $params), $status);
     }
 
     /**
@@ -105,12 +109,13 @@ abstract class Controller
      *
      * @param Response $response
      * @param string $url
+     * @param int $status
      *
      * @return Response
      */
-    public function redirectTo(Response $response, $url)
+    public function redirectTo(Response $response, $url, $status = 302)
     {
-        return $response->withRedirect($url);
+        return $response->withRedirect($url, $status);
     }
 
     /**
@@ -118,6 +123,7 @@ abstract class Controller
      *
      * @param Response $response
      * @param mixed $data
+     *
      * @return int
      */
     public function ok(Response $response, $data)
@@ -131,17 +137,19 @@ abstract class Controller
      * @param Response $response
      * @param string $route
      * @param array $params
+     *
      * @return Response
      */
     public function created(Response $response, $route, array $params = [])
     {
-        return $this->redirect($response, $route, $params)->withStatus(201);
+        return $response->withHeader('Location', $this->router->relativePathFor($route, $params))->withStatus(201);
     }
 
     /**
      * Return "204 No Content" response
      *
      * @param Response $response
+     *
      * @return Response
      */
     public function noContent(Response $response)
@@ -153,6 +161,7 @@ abstract class Controller
      * Return validation errors as a JSON array
      *
      * @param Response $response
+     *
      * @return int
      */
     public function validationErrors(Response $response)
@@ -166,6 +175,7 @@ abstract class Controller
      * @param Response $response
      * @param mixed $data
      * @param int $status
+     *
      * @return int
      */
     public function json(Response $response, $data, $status = 200)
@@ -179,6 +189,7 @@ abstract class Controller
      * @param Response $response
      * @param string $data
      * @param int $status
+     *
      * @return int
      */
     public function write(Response $response, $data, $status = 200)
@@ -191,6 +202,7 @@ abstract class Controller
      *
      * @param Request $request
      * @param Response $response
+     *
      * @return NotFoundException
      */
     public function notFoundException(Request $request, Response $response)
@@ -202,6 +214,7 @@ abstract class Controller
      * Create new AccessDeniedException
      *
      * @param string $message
+     *
      * @return AccessDeniedException
      */
     public function accessDeniedException($message = "Access denied")

@@ -3,7 +3,13 @@
 namespace App\Model;
 
 use Cartalyst\Sentinel\Users\EloquentUser;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @property Collection ownGames
+ * @property Collection playedGames
+ * @property Collection values
+ */
 class User extends EloquentUser
 {
     protected $table = 'user';
@@ -29,5 +35,10 @@ class User extends EloquentUser
     public function playedGames()
     {
         return $this->belongsToMany('App\Model\Game');
+    }
+
+    public function values()
+    {
+        return $this->hasMany('App\Model\RoundSubjectUser');
     }
 }

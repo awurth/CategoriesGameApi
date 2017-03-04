@@ -94,6 +94,7 @@ class GameController extends Controller
             throw $this->notFoundException($request, $response);
         }
 
+        $game->values()->delete();
         $game->subjects()->detach();
         $game->rounds()->delete();
         $game->delete();

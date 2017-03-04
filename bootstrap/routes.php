@@ -6,6 +6,7 @@ use App\Middleware\AuthMiddleware;
 
 use App\Controller\SubjectController;
 use App\Controller\GameController;
+use App\Controller\GameRoundController;
 use App\Controller\UserGameController;
 
 $authMiddleware = new AuthMiddleware($container);
@@ -22,7 +23,7 @@ $app->options('/{routes:.+}', function ($request, $response) {
 /**
  * Authentication
  */
-$app->group('/api', function () use ($container, $authMiddleware) {
+$app->group('', function () use ($container, $authMiddleware) {
     $this->post('/register', 'AuthController:register')->setName('register');
     $this->post('/login', 'AuthController:login')->setName('login');
     $this->post('/auth/refresh', 'AuthController:refresh')->setName('jwt.refresh');
@@ -38,3 +39,7 @@ $games['post']->add($authMiddleware);
 
 $router->cgetSub('users', 'games', UserGameController::class);
 $router->getSub('users', 'games', UserGameController::class);
+
+$router->cgetSub('games', 'rounds', GameRoundController::class);
+$router->getSub('games', 'rounds', GameRoundController::class);
+$router->postSub('games', 'rounds', GameRoundController::class);
