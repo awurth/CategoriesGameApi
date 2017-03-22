@@ -43,3 +43,7 @@ $router->getSub('users', 'games', UserGameController::class);
 $router->cgetSub('games', 'rounds', GameRoundController::class);
 $router->getSub('games', 'rounds', GameRoundController::class);
 $router->postSub('games', 'rounds', GameRoundController::class);
+
+$app->patch('/games/{game_id:[0-9]+}/rounds/{round_id:[0-9]+}', GameRoundController::class . ':patchGameRound')
+    ->setName('patch_game_round')
+    ->add($authMiddleware);

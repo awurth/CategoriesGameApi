@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\Game;
 use App\Model\Round;
 use App\Model\RoundSubjectUser;
+use App\Model\Subject;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -115,7 +116,42 @@ class GameRoundController extends Controller
         return $this->validationErrors($response);
     }
 
-    public function getRandomLetter(array $usedLetters = [])
+    public function patchGameRound(Request $request, Response $response, $gameId, $roundId) {
+        $game = Game::find($gameId);
+
+        if (null === $game) {
+            throw $this->notFoundException($request, $response);
+        }
+
+        $round = Round::find($roundId);
+
+        if (null === $round) {
+            throw $this->notFoundException($request, $response);
+        }
+
+        $subject = Subject::find($request->getParam('subject_id'));
+
+        if (null === $subject) {
+            throw $this->notFoundException($request, $response);
+        }
+
+        $user = $this->getUser();
+
+        $roundSubjectUser = RoundSubjectUser::where('round_id', $roundId)
+            ->where('subject_id', $subject->id)
+            ->where('user_id', $user->id)->first();
+
+        if (null === $roundSubjectUser) {
+            throw $this->notFoundException($request, $response);
+        }
+
+        $roundSubjectUser->value = $request->getParam('value');
+        $roundSubjectUser->save();
+
+        return $this->noContent($response);
+    }
+
+    private function getRandomLetter(array $usedLetters = [])
     {
         $alphabet = array_diff(str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'), $usedLetters);
 
