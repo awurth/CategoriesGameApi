@@ -1,0 +1,9 @@
+imports:
+    - 'config.yml'
+
+rest:
+    # Used for generating links in API routes markdown.
+    url: http://localhost/findthewords
+
+monolog:
+    level: !php/const:Monolog\Logger::DEBUG

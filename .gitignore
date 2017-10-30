@@ -1,4 +1,9 @@
-composer.phar
-composer.lock
 vendor/
-bootstrap/parameters.yml
+app/config/parameters.yml
+var/*
+!var/logs
+var/logs/*
+!var/logs/.gitkeep
+!var/cache
+var/cache/*
+!var/cache/.gitkeep

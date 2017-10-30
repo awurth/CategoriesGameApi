@@ -1,30 +1,28 @@
 <?php
 
-if (PHP_SAPI == 'cli-server') {
-    // To help the built-in PHP dev server, check if the request was actually for
-    // something which should probably be served as a static file
-    $url  = parse_url($_SERVER['REQUEST_URI']);
-    $file = __DIR__ . $url['path'];
-    if (is_file($file)) {
-        return false;
-    }
-}
-
 session_start();
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$config = Symfony\Component\Yaml\Yaml::parse(file_get_contents(__DIR__ . '/../bootstrap/config.yml'))['config'];
-$app = new Slim\App($config);
+$loader = new AWurth\Config\ConfigurationLoader(__DIR__ . '/../var/cache/prod/config.php');
+$loader->setParameters([
+    'env'      => 'prod',
+    'root_dir' => dirname(__DIR__)
+]);
 
-require __DIR__ . '/../bootstrap/dependencies.php';
+$app = new Slim\App($loader->getParameters());
+$container = $app->getContainer();
 
-require __DIR__ . '/../bootstrap/handlers.php';
+$container['config'] = $loader->load(__DIR__ . '/../app/config/config.yml');
 
-require __DIR__ . '/../bootstrap/middleware.php';
+require __DIR__ . '/../app/dependencies.php';
 
-require __DIR__ . '/../bootstrap/controllers.php';
+require __DIR__ . '/../app/handlers.php';
 
-require __DIR__ . '/../bootstrap/routes.php';
+require __DIR__ . '/../app/middleware.php';
+
+require __DIR__ . '/../app/controllers.php';
+
+require __DIR__ . '/../app/routes.php';
 
 $app->run();
